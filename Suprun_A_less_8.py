@@ -141,22 +141,19 @@ class Circle:
     def __eq__(self, other):
         if isinstance(other, Circle):
             if abs(self.radius) == abs(other.radius):
-                print(
-                    circle_a.x + circle_b.x,
-                    circle_a.y + circle_b.y
-                )
-
+                return True
             else:
-                print(
-                    circle_a.x + circle_b.x,
-                    circle_a.y + circle_b.y,
-                    abs(circle_a.radius + circle_b.radius)
-                )
+                return False
 
 
 circle_a = Circle(-3, -5, -8)
 circle_b = Circle(7, 8, 8)
 print(circle_a == circle_b)
+print(
+    circle_a.x + circle_b.x,
+    circle_a.y + circle_b.y,
+    abs(circle_a.radius + circle_b.radius)
+)
 
 
 # обратный метод
