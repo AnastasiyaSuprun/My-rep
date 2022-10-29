@@ -43,17 +43,9 @@ print(next(geopr()))
 
 # Task 2 with regular expressions
 
-regex = (
-    r'[A-Za-z0-9]+ '
-    r'[.!#%&*+-=?^_`{|}~] '
-    r'[A-Za-z0-9]+ '
-    r'@[A-Za-z0-9] '
-    r'[A-Za-z0-9.-]{,61} '
-    r'[A-Za-z0-9] '
-)
+regex = r'[A-Za-z0-9]+[.!#%&*+-=?^_`{|}~][A-Za-z0-9]+' \
+        r'@[A-Za-z0-9][A-Za-z0-9.-]{,61}[A-Za-z0-9]'
 
 result = re.match(regex, "Pro9.Ivan@yand-var.com")
 
 print(result)
-
-# Помогите... почему на сайте regex101 срабатывает, а в пайчарм нет?
