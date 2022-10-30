@@ -1,0 +1,77 @@
+# 1. Создаем базу данных:
+CREATE DATABASE IF NOT EXISTS `my_tables`;
+
+# 2. Создаем таблицу магазинов:
+CREATE TABLE IF NOT EXISTS `shops`(
+    `id_shop` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `shop` VARCHAR(20) NOT NULL UNIQUE,
+    `city` VARCHAR (20) NOT NULL,
+    `total_sales` INT NOT NULL
+);
+
+# 3. Создаем таблицу товаров:
+CREATE TABLE IF NOT EXISTS `products`(
+    `id_product` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `product` VARCHAR(20) NOT NULL,
+    `price` INT NOT NULL,
+    `sales` INT NOT NULL,
+    `shop` VARCHAR(20) NOT NULL,
+    FOREIGN KEY (`shop`) REFERENCES `shops` (`shop`)
+);
+
+# 4. Заполняем таблицу магазинов данными:
+INSERT INTO `shops` VALUES (1, 'Auchan', 'Moscow', 680000),
+                           (2, 'Veget', 'St-Peterburg', 520000),
+                           (3, 'Grossery', 'Sochi', 430000),
+                           (4, 'Sweet', 'Moscow', 250000),
+                           (5, 'Cheessy', 'Upha', 210000);
+
+# 5. Заполняем таблицу продуктов данными:
+INSERT INTO `products` VALUES (1, 'chicken', 20, 230, 'Auchan'),
+                              (2, 'bananas', 12, 190, 'Veget'),
+                              (3, 'bread', 8, 250, 'Grossery'),
+                              (4, 'milk', 9, 170, 'Grossery'),
+                              (5, 'tomatoes', 15, 110, 'Veget'),
+                              (6, 'chocolate', 10, 320, 'Sweet'),
+                              (7, 'fish', 25, 280, 'Auchan'),
+                              (8, 'cheese', 32, 160, 'Cheessy');
+
+# 6. Делаем выборку по товару, его цене, магазину и городу.
+SELECT products.product, products.price, shops.shop, shops.city
+FROM products JOIN shops ON products.shop = shops.shop;
+
+# 7. Делаем выборку по товару, его продажам и магазину в городе Москве.
+SELECT products.product, products.sales, shops.shop, shops.city
+FROM products JOIN shops ON products.shop = shops.shop
+WHERE shops.city = 'Moscow';
+
+# 8. Делаем выборку по товарам с продажами меньше 250 во всех магазинах,
+кроме Cheessy.
+SELECT products.product, products.price, shops.shop
+FROM products JOIN shops ON products.shop = shops.shop
+WHERE products.sales < 250 AND shops.shop != 'Cheessy';
+
+# 9. Находим магазин с максимальным объемом продаж, в котором продаются
+товары стоимостью от 10 до 25.
+SELECT shops.shop, shops.total_sales, products.product
+FROM products JOIN shops ON products.shop = shops.shop
+WHERE products.price BETWEEN 10 AND 25
+HAVING MAX(shops.total_sales)
+
+# 10. Находим средний размер объемов продаж магазинов в Москве.
+SELECT shops.city, AVG(shops.total_sales)
+FROM shops WHERE shops.city = 'Moscow'
+HAVING COUNT(shops.city) > 1;
+
+# 11. Делаем выборку продуктов, начинающихся на "с", сортируя их по максимальной
+цене.
+SELECT products.product, products.price, shops.city
+FROM products JOIN shops ON products.shop = shops.shop
+WHERE products.product LIKE 'c%'
+ORDER BY products.price DESC
+
+# 12. Обновляем в таблице товаров стоимость и продажи молока по его
+идентификатору.
+UPDATE `products`
+SET `price` = 11, `sales` = 210
+WHERE `id_product` = 4;
