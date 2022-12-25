@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% for pet in pets %}
+        <div class="pet-item">
+
+            {% if pet.photo %}
+                <img src="{{ pet.photo.url }}" width="120" height="100" alt="pet photo">
+            {% endif %}
+            {{ pet.nickname }} {{ pet.owner.first_name }} {{ pet.owner.last_name }}
+        </div>
+    {% endfor %}
+
+    <div class="pagination">
+        <span class="step-links">
+            {% for i in pages %}
+                {% if i == page_obj.number %}
+                    {{ i }}
+                {% else %}
+                    <a href="?page={{ i }}">{{ i }}</a>
+                {% endif %}
+            {% endfor %}
+        </span>
+    </div>
+
+{% endblock %}
