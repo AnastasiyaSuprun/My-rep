@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% for visitor in list %}
+        <div class="visitor-item">
+            {{visitor.firstname}} {{visitor.lastname}}
+        </div>
+    {% endfor %}
+
+{% endblock %}

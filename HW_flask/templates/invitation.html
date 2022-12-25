@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form method="post" action="/invite" class="invitation-form">
+    <div class="form-line">
+        <label for="firstname">First Name:</label>
+        <input id="firstname" name="firstname"
+               value="{{ request.form['firstname'] }}">
+    </div>
+    <div class="form-line">
+        <label for="lastname">Last Name:</label>
+        <input id="lastname" name="lastname"
+               value="{{ request.form['lastname'] }}">
+    </div>
+    <div class="form-line">
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" value="{{ request.form['age'] }}">
+    </div>
+    <div class="form-line">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email"
+               value="{{ request.form['email'] }}">
+    </div>
+    <button>Save</button>
+</form>
+{% endblock %}
