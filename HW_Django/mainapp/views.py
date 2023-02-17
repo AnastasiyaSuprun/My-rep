@@ -1,5 +1,7 @@
 from django.shortcuts import render
-from django.contrib.auth import authenticate, login
+from django.shortcuts import redirect
+
+from .forms import AddPetForm
 from .utils import paginate
 from .models import Owner
 from .models import Pet
@@ -33,7 +35,7 @@ def owners_list(request):
 
 
 def pets_list(request):
-    pets = Pet.objects.all()
+    pets = Pet.objects.all().select_related('owner')
     context = {
         'menu': menu,
         'title': 'Pet Match | Pets',
@@ -41,6 +43,22 @@ def pets_list(request):
     context = paginate(pets, 3, request, context, var_name='pets')
 
     return render(request, 'pets_list.html', context)
+
+
+def add_pet(request):
+    if request.method == 'POST':
+        form = AddPetForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+    else:
+        form = AddPetForm()
+    context = {
+        'menu': menu,
+        'title': 'Add your pet',
+        'form': form,
+    }
+    return render(request, 'add_pet.html', context)
 
 
 def shelters_list(request):

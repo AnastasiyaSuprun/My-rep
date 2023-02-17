@@ -3,9 +3,7 @@ from django.db import models
 from .mixins import SoftDateTimeMixin
 
 
-# хочу вставить поле BooleanField!!!!
-
-class Owner(models.Model, SoftDateTimeMixin):
+class Owner(SoftDateTimeMixin):
 
     class Meta(type):
         verbose_name = u'pet owner'
@@ -37,7 +35,7 @@ class Owner(models.Model, SoftDateTimeMixin):
         return f'{self.first_name} {self.last_name}'
 
 
-class Pet(models.Model, SoftDateTimeMixin):
+class Pet(SoftDateTimeMixin):
 
     class Meta(type):
         verbose_name = u'pet'
@@ -85,7 +83,7 @@ class Pet(models.Model, SoftDateTimeMixin):
         return f'{self.breed} {self.nickname} is looking for a friend.'
 
 
-class Shelter(models.Model, SoftDateTimeMixin):
+class Shelter(SoftDateTimeMixin):
 
     class Meta(type):
         verbose_name = u'shelter'
@@ -123,7 +121,7 @@ class Shelter(models.Model, SoftDateTimeMixin):
         return f'{self.title} in {self.city}'
 
 
-class PetInShelter(models.Model, SoftDateTimeMixin):
+class PetInShelter(SoftDateTimeMixin):
 
     class Meta(type):
         verbose_name = u'pet'
@@ -147,7 +145,7 @@ class PetInShelter(models.Model, SoftDateTimeMixin):
         blank=False,
     )
 
-    shelter = models.ForeignKey(
+    shelter_field = models.ForeignKey(
         Shelter,
         max_length=100,
         blank=False,

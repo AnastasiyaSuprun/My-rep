@@ -1,9 +1,9 @@
 from django.apps import AppConfig
 
 
-class MainappConfig(AppConfig):
+class AuthenticationConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'mainapp'
+    name = 'authentication'
 
     def ready(self):
-        import mainapp.signals # noqa
+        import authentication.signals  # noqa
