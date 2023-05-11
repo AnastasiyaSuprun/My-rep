@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    {% if request.user.is_authenticated %}
+        <h3>Welcome to Petmatch, {{ request.user.username }}!</h3>
+    {% else %}
+        <h3>Welcome to Petmatch!
+            You are not authenticated.
+        <a href="{% url 'login' %}">Log in</a> <a href="{% url 'register' %}">Sign up</a></h3>
+    {% endif %}
+
+    <img src="https://ucare.timepad.ru/90dc5eae-4c43-4712-a9b6-a77f8ca0e2ec/poster_event_1673624.jpg" width="900" height="auto" alt="pet photo">
+
+{% endblock %}
+

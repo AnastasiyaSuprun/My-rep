@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+    {% if request.user.is_authenticated %}
+        <h3>{{ request.user.username }}, you can add a profile of your lovely pet!</h3>
+        <a href="{% url 'add_pet' %}">Add a pet</a>
+        <br>
+    {% else %}
+        <h3>To add a profile of your lovely pet you should authenticate.</h3>
+        <h4><a href="{% url 'login' %}">Log in</a> <a href="{% url 'register' %}">Sign up</a></h4>
+    {% endif %}
+    <br>
+    {% for pet in pets %}
+        <div class="pet-item">
+
+            {% if pet.photo %}
+                <img src="{{ pet.photo.url }}" width="200" height="auto" alt="pet photo">
+            {% endif %}
+            {{ pet.nickname }} owned by {{ pet.owner.first_name }} {{ pet.owner.last_name }}
+            {% if pet.created_at %}
+                {{ pet.created_at }}
+            {% endif %}
+        </div> <br>
+    {% endfor %}
+    <br>
+    <div class="pagination">
+        <span class="step-links">
+            {% for i in pages %}
+                {% if i == page_obj.number %}
+                    {{ i }}
+                {% else %}
+                    <a href="?page={{ i }}">{{ i }}</a>
+                {% endif %}
+            {% endfor %}
+        </span>
+    </div>
+
+{% endblock %}

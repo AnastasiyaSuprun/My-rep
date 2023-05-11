@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    {% for owner in owners %}
+        <div class="owner-item">
+            {{owner.first_name}} {{owner.last_name}} wants {{ owner.purpose }}
+        </div>
+    {% endfor %}
+
+    <div class="pagination">
+        <span class="step-links">
+            {% for i in pages %}
+                {% if i == page_obj.number %}
+                    {{ i }}
+                {% else %}
+                    <a href="?page={{ i }}">{{ i }}</a>
+                {% endif %}
+            {% endfor %}
+        </span>
+    </div>
+
+{% endblock %}

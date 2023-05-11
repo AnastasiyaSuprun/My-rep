@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    {% for shelter in shelters %}
+        <div class="shelter-item">
+            {{shelter.title}} - {{ shelter.description }} - {{shelter.city}}
+        </div>
+    {% endfor %}
+
+    <div class="pagination">
+        <span class="step-links">
+            {% for i in pages %}
+                {% if i == page_obj.number %}
+                    {{ i }}
+                {% else %}
+                    <a href="?page={{ i }}">{{ i }}</a>
+                {% endif %}
+            {% endfor %}
+        </span>
+    </div>
+
+{% endblock %}
